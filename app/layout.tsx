@@ -1,6 +1,7 @@
 import NextAuthProvider from './providers/NextAuthProvider';
 import './globals.css';
 import { Metadata } from 'next';
+import { Toaster } from './components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'Run Club App',
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="container mx-auto px-4 py-8">
             {children}
           </main>
+          <Toaster />
         </NextAuthProvider>
       </body>
     </html>

@@ -5,14 +5,3 @@ export interface User {
   image?: string | null;
   role: "USER" | "INSTRUCTOR";
 };
-
-export interface CreateUserDto {
-  name: string;
-  email: string;
-  password: string;
-}
-
-export interface UpdateUserDto
-  extends Partial<Omit<CreateUserDto, "password">> {
-  id: string;
-}

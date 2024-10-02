@@ -2,7 +2,7 @@
   "extends": ["next/core-web-vitals", "next/typescript"],
   "overrides": [
     {
-      "files": ["app/components/ui/input.tsx"],
+      "files": ["app/components/ui/input.tsx", "app/components/ui/textarea.tsx"],
       "rules": {
         "@typescript-eslint/no-empty-object-type": "off"
       }

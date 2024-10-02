@@ -8,6 +8,12 @@
       }
     },
     {
+      "files": ["app/components/ui/calendar.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    },
+    {
       "files": ["app/hooks/use-toast.ts"],
       "rules": {
         "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "actionTypes" }]

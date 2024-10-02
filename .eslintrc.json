@@ -1,3 +1,23 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "overrides": [
+    {
+      "files": ["app/components/ui/input.tsx"],
+      "rules": {
+        "@typescript-eslint/no-empty-object-type": "off"
+      }
+    },
+    {
+      "files": ["app/hooks/use-toast.ts"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "actionTypes" }]
+      }
+    },
+    {
+      "files": ["app/types/next-auth.d.ts"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ]
 }

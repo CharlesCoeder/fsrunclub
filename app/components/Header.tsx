@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import UserProfileDropdown from '@/components/UserProfileDropdown';
 import { Button } from '@/components/ui/button';
 import { getUserRunCount } from '@/actions/getUserRunCount';
+import { User } from '@/types/user';
 
 export default function Header() {
   const { data: session, status } = useSession();
@@ -13,8 +14,9 @@ export default function Header() {
 
   useEffect(() => {
     async function fetchRunCount() {
-      if (session?.user?.id) {
-        const count = await getUserRunCount(session.user.id);
+      const user = session?.user as User | undefined;
+      if (user?.id) {
+        const count = await getUserRunCount(user.id);
         setRunCount(count);
       }
     }
@@ -24,15 +26,9 @@ export default function Header() {
 
   return (
     <header className="absolute top-4 right-4 flex items-center">
-      {status === 'authenticated' && session.user ? (
+      {status === 'authenticated' && session?.user ? (
         <UserProfileDropdown 
-          user={{
-            id: session.user.id,
-            name: session.user.name,
-            email: session.user.email,
-            image: session.user.image,
-            role: session.user.role as "USER" | "INSTRUCTOR",
-          }} 
+          user={session.user as User}
           runCount={runCount} 
         />
       ) : (

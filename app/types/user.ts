@@ -1,9 +1,10 @@
 export interface User {
   id: string;
-  name: string;
-  email: string;
-  runCount: number;
-}
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  role: "USER" | "INSTRUCTOR";
+};
 
 export interface CreateUserDto {
   name: string;

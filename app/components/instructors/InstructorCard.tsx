@@ -20,20 +20,20 @@ export default function InstructorCard({ instructor }: InstructorCardProps) {
       <CardHeader>
         <div className="flex items-center space-x-4">
           <Avatar>
-            <AvatarImage src={instructor.profileImage} alt={instructor.name} />
-            <AvatarFallback>{instructor.name.charAt(0)}</AvatarFallback>
+            <AvatarImage src={instructor.profileImage ?? undefined} alt={instructor.name ?? 'Instructor'} />
+            <AvatarFallback>{instructor.name?.charAt(0) ?? 'I'}</AvatarFallback>
           </Avatar>
-          <CardTitle>{instructor.name}</CardTitle>
+          <CardTitle>{instructor.name ?? 'Unnamed Instructor'}</CardTitle>
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-gray-600 mb-4">{instructor.bio}</p>
+        <p className="text-sm text-gray-600 mb-4">{instructor.bio ?? 'No bio available'}</p>
         <div className="flex flex-wrap gap-2">
-          {instructor.specialties.map((specialty, index) => (
+          {instructor.specialties?.map((specialty, index) => (
             <Badge key={index} variant="secondary">
               {specialty}
             </Badge>
-          ))}
+          )) ?? <Badge variant="secondary">No specialties listed</Badge>}
         </div>
       </CardContent>
       <CardFooter>

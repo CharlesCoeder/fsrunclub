@@ -1,11 +1,26 @@
 import React from "react";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 import RunSchedule from "@/components/runs/RunSchedule";
 import InstructorList from "@/components/instructors/InstructorList";
 import RewardProgress from "@/components/rewards/RewardProgress";
+import Header from "@/components/Header";
+import { prisma } from "@/lib/prisma";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await getServerSession(authOptions);
+  let runCount = 0;
+
+  if (session?.user?.id) {
+    runCount = await prisma.userRun.count({
+      where: { userId: session.user.id },
+    });
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
+      <Header />
+
       <h1 className="text-4xl font-bold mb-8">Welcome to Run Club</h1>
 
       <section className="mb-12">

@@ -1,31 +1,27 @@
-"use client";
+import { useState, useEffect } from 'react';
+import { Instructor } from '@/types/instructor';
 
-import { useState, useEffect } from "react";
-import { Instructor } from "@/types/instructor";
-
-export function useInstructors() {
+export function useInstructors(fetchInstructors: () => Promise<Instructor[]>) {
   const [instructors, setInstructors] = useState<Instructor[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    async function fetchInstructors() {
+    async function loadInstructors() {
       try {
-        const response = await fetch("/api/instructors");
-        if (!response.ok) {
-          throw new Error("Failed to fetch instructors");
-        }
-        const data = await response.json();
+        setIsLoading(true);
+        const data = await fetchInstructors();
         setInstructors(data);
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error("An error occurred"));
+        setError(null);
+      } catch (e) {
+        setError(e instanceof Error ? e : new Error('An error occurred'));
       } finally {
         setIsLoading(false);
       }
     }
 
-    fetchInstructors();
-  }, []);
+    loadInstructors();
+  }, [fetchInstructors]);
 
   return { instructors, isLoading, error };
 }

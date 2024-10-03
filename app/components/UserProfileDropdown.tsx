@@ -13,35 +13,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
+import { User } from '@/types/user';
 
 interface UserProfileDropdownProps {
-  user: {
-    id: string;
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-    role: "USER" | "INSTRUCTOR";
-  };
+  user: User;
   runCount: number;
 }
 
 export default function UserProfileDropdown({ user, runCount }: UserProfileDropdownProps) {
-  console.log("User image URL:", user.image);
-  console.log("Full user object:", user);
-
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-8 w-auto px-2 flex items-center">
           <Avatar className="h-8 w-8 mr-2">
-            <AvatarImage 
-              src={user.image || '/default-avatar.png'} 
-              alt={user.name || 'User'} 
-              onError={(e) => {
-                console.error("Error loading avatar image:", e);
-                e.currentTarget.src = '/default-avatar.png';
-              }}
-            />
+            <AvatarImage src={user.image || undefined} alt={user.name || ''} />
             <AvatarFallback>{user.name?.charAt(0) || 'U'}</AvatarFallback>
           </Avatar>
           <span className="font-medium">{user.name}</span>

@@ -26,12 +26,22 @@ interface UserProfileDropdownProps {
 }
 
 export default function UserProfileDropdown({ user, runCount }: UserProfileDropdownProps) {
+  console.log("User image URL:", user.image);
+  console.log("Full user object:", user);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-8 w-auto px-2 flex items-center">
           <Avatar className="h-8 w-8 mr-2">
-            <AvatarImage src={user.image || undefined} alt={user.name || ''} />
+            <AvatarImage 
+              src={user.image || '/default-avatar.png'} 
+              alt={user.name || 'User'} 
+              onError={(e) => {
+                console.error("Error loading avatar image:", e);
+                e.currentTarget.src = '/default-avatar.png';
+              }}
+            />
             <AvatarFallback>{user.name?.charAt(0) || 'U'}</AvatarFallback>
           </Avatar>
           <span className="font-medium">{user.name}</span>
@@ -49,7 +59,7 @@ export default function UserProfileDropdown({ user, runCount }: UserProfileDropd
           Runs Completed: {runCount}
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/profile">My Profile</Link>
+          <Link href="/profile/me">My Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()}>

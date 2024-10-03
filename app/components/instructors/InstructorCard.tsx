@@ -38,7 +38,7 @@ export default function InstructorCard({ instructor }: InstructorCardProps) {
       </CardContent>
       <CardFooter>
         <a
-          href={`/instructors/${instructor.id}`}
+          href={`/profile/${instructor.id}`}
           className="text-blue-500 hover:underline"
         >
           View Profile
